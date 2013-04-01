@@ -9,4 +9,7 @@ Licensed under GNU Lesser General Public License Version 3 or later (the "LGPL")
 http://www.gnu.org/licenses/lgpl.html
 
 Author: Antti Leppä / Foyt
-Email: antti.leppa@foyt.fi
+
+Downloads
+=========
+Latest version can be downloaded from: https://github.com/anttileppa/DiffXmlJs/tree/master/archives
