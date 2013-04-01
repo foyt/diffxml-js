@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="diffxmljs" default="all">
+
+	<property name="project" value="diffxmljs" />
+	<property name="version" value="1.0.0" />
+
+	<taskdef name="jsdoctoolkit" classname="uk.co.darrenhurley.ant.tasks.JsDocToolkit">
+	  <classpath path="${jsdoc-toolkit-ant-task}"></classpath>
+	  <classpath path="${jsdoc-home}/java/classes/js.jar"></classpath>
+	</taskdef>
+	
+	<property name="jsdocoutputdir" value="docs/apidocs" />
+
+	<description>Build file for DiffXmlJs</description>
+
+	<target name="jsdoc" description="Generates jsdoc files">
+		<jsdoctoolkit jsdochome="${jsdoc-home}" template="jsdoc" outputdir="${jsdocoutputdir}" inputdir="src" />
+	</target>
+
+	<target name="build">
+		<concat destfile="dist/${project}-uncompressed.js" encoding="UTF-8">
+		  <filelist>
+        <file name="src/diffxmlutils.js"/>
+		  	<file name="src/delta.js"/>
+		  	<file name="src/defaultdelta.js"/>
+		  	<file name="src/editscript.js"/>
+        <file name="src/findposition.js"/>
+        <file name="src/fmes.js"/>
+        <file name="src/nodefifo.js"/>
+        <file name="src/nodeops.js"/>
+        <file name="src/nodepairs.js"/>
+        <file name="src/nodedepth.js"/>
+        <file name="src/match.js"/>
+        <file name="src/nodesequence.js"/>
+        <file name="src/childnumber.js"/>
+		  </filelist>
+		</concat>
+
+		<java jar="${yuicompressor-jar}" fork="true">
+			<arg value="dist/${project}-uncompressed.js" />
+			<arg value="-o" />
+			<arg value="dist/${project}.js" />
+		</java>
+	</target>
+	
+	<target name="archives">
+	  <delete dir="archives"/>
+	    
+    <mkdir dir="archives"/>
+    <mkdir dir="archives/dist"/>
+    <mkdir dir="archives/dist/${project}"/>
+    <mkdir dir="archives/full"/>
+    <mkdir dir="archives/full/${project}"/>
+    <mkdir dir="archives/full/${project}/src"/>
+    <mkdir dir="archives/full/${project}/docs"/>
+    <mkdir dir="archives/full/${project}/dist"/>
+    
+    <copy todir="archives/dist/${project}"> 
+      <fileset dir="dist" includes="*.js"/>
+    </copy>
+
+    <copy todir="archives/full/${project}/dist"> 
+      <fileset dir="dist" includes="*.js"/>
+    </copy>
+
+    <copy todir="archives/full/${project}/docs" includeemptydirs="true" > 
+      <fileset dir="docs">
+        <exclude name=".svn"/>
+      </fileset>
+    </copy>
+
+    <copy todir="archives/full/${project}/src" includeemptydirs="true" > 
+      <fileset dir="src">
+        <exclude name=".svn"/>
+      </fileset>
+    </copy>
+    
+    <tar destfile="archives/${project}-${version}.tar" basedir="archives/dist/"></tar>
+    <gzip src="archives/${project}-${version}.tar" destfile="archives/${project}-${version}.tar.gz"/>
+    <bzip2 src="archives/${project}-${version}.tar" destfile="archives/${project}-${version}.tar.bz2"/>
+    <delete file="archives/${project}-${version}.tar"></delete>
+    <zip destfile="archives/${project}-${version}.zip" basedir="archives/dist/"></zip>
+    
+    <tar destfile="archives/${project}-${version}-src.tar" basedir="archives/full/"></tar>
+    <gzip src="archives/${project}-${version}-src.tar" destfile="archives/${project}-${version}-src.tar.gz"/>
+    <bzip2 src="archives/${project}-${version}-src.tar" destfile="archives/${project}-${version}-src.tar.bz2"/>
+    <delete file="archives/${project}-${version}-src.tar"></delete>
+    <zip destfile="archives/${project}-${version}-src.zip" basedir="archives/full/"></zip>
+    
+    <delete dir="archives/dist"/>
+    <delete dir="archives/full"/>
+    
+	</target>
+	
+	<target name="all" depends="build,jsdoc,archives"></target>
+	
+</project>
