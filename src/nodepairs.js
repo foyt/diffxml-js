@@ -12,6 +12,10 @@
  * @class Class to hold pairs of nodes.
  */
 NodePairs = DiffXmlUtils.createClass(null, {
+  /**
+   * Constructor
+   * @constructs
+   */
   init: function () {
     this._pairs = new Array();
   },

@@ -22,18 +22,19 @@ FindPosition = DiffXmlUtils.createClass(null, {
    * (Equivalent to the current child number of the node to insert
    * before)
    *
+   * @constructs
    * @param x         the node with no partner
    * @param matchings the set of matching nodes
    */
   init: function (x, matchings) {
     
-    /** The DOM position. */
+    // The DOM position. 
     this._insertPositionDOM = null;
     
-    /** The XPath position. */
+    // The XPath position.
     this._insertPositionXPath = null;
     
-    /** The character position. */
+    // The character position.
     this._charInsertPosition = null;
     
     var v = this._getInOrderLeftSibling(x);
@@ -42,11 +43,9 @@ FindPosition = DiffXmlUtils.createClass(null, {
       this._insertPositionXPath = 1;
       this._charInsertPosition = 1;
     } else {
-      /**
-        * Get partner of v and return index after
-        * (we want to insert after the previous in-order node, so that
-        * w's position is equivalent to x's).
-        */
+      // Get partner of v and return index after
+      // (we want to insert after the previous in-order node, so that
+      // w's position is equivalent to x's).
       var u = matchings.getPartner(v);
       var uChildNo = new ChildNumber(u);
       //Need position after u

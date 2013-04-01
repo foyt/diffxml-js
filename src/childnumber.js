@@ -27,28 +27,28 @@ ChildNumber = DiffXmlUtils.createClass(null, {
       throw new Error("Node must have parent");
     }
     
-    /** DOM child number. */
+    // DOM child number.
     this._domChildNo = -1;
 
-    /** XPath child number. */
+    // XPath child number.
     this._xPathChildNo = -1;
 
-    /** XPath char position. */
+    // XPath char position.
     this._xPathCharPos = -1;
 
-    /** In-order DOM child number. */
+    // In-order DOM child number.
     this._inOrderDOMChildNo = -1;
 
-    /** In-order XPath child number. */
+    // In-order XPath child number.
     this._inOrderXPathChildNo = -1;
     
-    /** In-order XPath text position. */
+    // In-order XPath text position.
     this._inOrderXPathCharPos = -1;
     
-    /** The node we are doing the calcs on. */
+    // The node we are doing the calcs on.
     this._node = node;
     
-    /** The siblings of the node and the node itself. */
+    // The siblings of the node and the node itself. 
     this._siblings = this._node.parentNode.childNodes;
   },
   proto : /** @lends ChildNumber.prototype */ {

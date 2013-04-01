@@ -15,6 +15,10 @@
  * Uses the Fast Match Edit Script algorithm (fmes).
  */
 Fmes = DiffXmlUtils.createClass(null, { 
+  /**
+   * Constructor
+   * @constructs
+   */
   init: function () {
   },
   proto : /** @lends Fmes.prototype */ {

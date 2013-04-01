@@ -13,6 +13,10 @@
  * @extends Delta
  */
 DefaultDelta = DiffXmlUtils.createClass(Delta, {
+  /**
+   * Constructor
+   * @constructs
+   */
   init: function () {
     this._changes = new Array();
   },

@@ -12,6 +12,10 @@
  * @class Interface for Delta formats.
  */
 Delta = DiffXmlUtils.createClass(null, {
+  /**
+   * Constructor
+   * @constructs
+   */
   init: function () {
   },
   proto : /** @lends Delta.prototype */ {

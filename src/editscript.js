@@ -21,26 +21,22 @@ EditScript = DiffXmlUtils.createClass(null, {
    * Used to create a list of modifications that will turn document1 into document2,
    * given a set of matching nodes.
    * 
+   * @constructs
    * @param document1 the original document
    * @param document2 the modified document
    * @param matchings the set of matching nodes
    */
   init: function (document1, document2, matchings) {
-    /**
-     * The original document.
-     */
+    // The original document.
     this._document1 = document1;
-    /**
-     * The modified document.
-     */
+
+    // The modified document.
     this._document2 = document2;
-    /**
-     * The set of matching nodes.
-     */
+    
+    // The set of matching nodes.
     this._matchings = matchings;
-    /**
-     * Delta
-     */
+
+    //Delta
     this._delta = null;
   },
   proto : /** @lends EditScript.prototype */ {

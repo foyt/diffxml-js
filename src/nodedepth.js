@@ -19,14 +19,10 @@ NodeDepth = DiffXmlUtils.createClass(null, {
    * @param node The node to find the depth of
    */
   init: function (node) {
-    /**
-     * Node we're pointing to.
-     */    
+    // Node we're pointing to.
     this._node = node;
 
-    /**
-     * Field holding nodes depth.
-     */
+    // Field holding nodes depth.
     this._depth = this._calculateDepth(this._node);
   },
   proto : /** @lends NodeDepth.prototype */ {
