@@ -2,7 +2,7 @@
 <project name="diffxmljs" default="all">
 
 	<property name="project" value="diffxmljs" />
-	<property name="version" value="1.0.0" />
+	<property name="version" value="1.1.0" />
 
 	<taskdef name="jsdoctoolkit" classname="uk.co.darrenhurley.ant.tasks.JsDocToolkit">
 	  <classpath path="${jsdoc-toolkit-ant-task}"></classpath>
