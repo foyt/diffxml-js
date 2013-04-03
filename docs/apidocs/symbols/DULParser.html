@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - NodeFifo</title>
+		<title>JsDoc Reference - DULParser</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -234,7 +234,7 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class NodeFifo
+				Class DULParser
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -242,20 +242,16 @@ ul.inheritsList
 				
 				
 			
-				Implements a First In First Out list.
-
-Equivalent to a stack where elements are removed from
-the *opposite* end to where the are added. Hence the
-Stack terms "push" and pop" are used.
+				Parser for DUL Patch format
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/src_nodefifo.js.html">nodefifo.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/src_dulparser.js.html">dulparser.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class NodeFifo.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class DULParser.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -268,7 +264,7 @@ Stack terms "push" and pop" are used.
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/NodeFifo.html#constructor">NodeFifo</a></b>()
+								<b><a href="../symbols/DULParser.html#constructor">DULParser</a></b>()
 							</div>
 							<div class="description"></div>
 						</td>
@@ -284,7 +280,7 @@ Stack terms "push" and pop" are used.
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class NodeFifo.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class DULParser.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -295,29 +291,11 @@ Stack terms "push" and pop" are used.
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/NodeFifo.html#addChildrenOfNode">addChildrenOfNode</a></b>(x)
+								<div class="fixedFont">DULParser.<b><a href="../symbols/DULParser.html#.parseDULPatch">parseDULPatch</a></b>(dulPatch)
 								</div>
-								<div class="description">Adds the children of a node to the fifo.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/NodeFifo.html#isEmpty">isEmpty</a></b>()
-								</div>
-								<div class="description">Checks if the Fifo contains any objects.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/NodeFifo.html#pop">pop</a></b>()
-								</div>
-								<div class="description">Remove a Node from the Fifo.</div>
+								<div class="description">Parses DUL format patch and converts it into internal format</div>
 							</td>
 						</tr>
 					
@@ -338,7 +316,7 @@ Stack terms "push" and pop" are used.
 				</div>
 				
 				<div class="fixedFont">
-						<b>NodeFifo</b>()
+						<b>DULParser</b>()
 				</div>
 				
 				<div class="description">
@@ -369,15 +347,15 @@ Stack terms "push" and pop" are used.
 					Method Detail
 				</div>
 				
-					<a name="addChildrenOfNode"> </a>
-					<div class="fixedFont">
+					<a name=".parseDULPatch"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<b>addChildrenOfNode</b>(x)
+					<span class="light">DULParser.</span><b>parseDULPatch</b>(dulPatch)
 					
 					</div>
 					<div class="description">
-						Adds the children of a node to the fifo.
+						Parses DUL format patch and converts it into internal format
 						
 						
 					</div>
@@ -389,37 +367,12 @@ Stack terms "push" and pop" are used.
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>x</b>
+									<b>dulPatch</b>
 									
 								</dt>
-								<dd>the node whose children are to be added</dd>
+								<dd>DUL patch</dd>
 							
 							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="isEmpty"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>isEmpty</b>()
-					
-					</div>
-					<div class="description">
-						Checks if the Fifo contains any objects.
-						
-						
-					</div>
-					
-					
-					
 						
 						
 						
@@ -428,41 +381,7 @@ Stack terms "push" and pop" are used.
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd>true if there are any objects in the Fifo</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="pop"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>pop</b>()
-					
-					</div>
-					<div class="description">
-						Remove a Node from the Fifo.
-
-This Node is always the oldest item in the array.
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd>the oldest item in the Fifo</dd>
+								<dd>InternalDelta</dd>
 							
 							</dl>
 						
@@ -483,7 +402,7 @@ This Node is always the oldest item in the array.
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Apr 03 2013 16:24:26 GMT+0300 (EEST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Apr 03 2013 16:24:25 GMT+0300 (EEST)
 		</div>
 	</body>
 </html>
