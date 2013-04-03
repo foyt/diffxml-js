@@ -48,10 +48,12 @@ EditScript = DiffXmlUtils.createClass(null, {
      * Uses algorithm in "Change Detection in Hierarchically Structured
      * Information".
      *
+     * @param delta (optional) delta object, if not specified InternalDelta is used.
+     *
      * @return the resultant Edit Script
      */
     create: function(delta) {
-      this._delta = delta||new DefaultDelta();
+      this._delta = delta||new InternalDelta();
       
       // Fifo used to do a breadth first traversal of doc2
       var fifo = new NodeFifo();
