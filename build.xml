@@ -22,7 +22,8 @@
 		  <filelist>
         <file name="src/diffxmlutils.js"/>
 		  	<file name="src/delta.js"/>
-		  	<file name="src/defaultdelta.js"/>
+		  	<file name="src/internaldelta.js"/>
+        <file name="src/internalpatch.js"/>
 		  	<file name="src/editscript.js"/>
         <file name="src/findposition.js"/>
         <file name="src/fmes.js"/>
@@ -33,6 +34,8 @@
         <file name="src/match.js"/>
         <file name="src/nodesequence.js"/>
         <file name="src/childnumber.js"/>
+        <file name="src/dulconstants.js"/>
+        <file name="src/dulparser.js"/>
 		  </filelist>
 		</concat>
 
