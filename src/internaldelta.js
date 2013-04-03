@@ -12,15 +12,15 @@
  * @class Default delta.
  * @extends Delta
  */
-DefaultDelta = DiffXmlUtils.createClass(Delta, {
+InternalDelta = DiffXmlUtils.createClass(Delta, {
   /**
    * Constructor
    * @constructs
    */
-  init: function () {
-    this._changes = new Array();
+  init: function (operations) {
+    this._changes = operations||new Array();
   },
-  proto : /** @lends DefaultDelta.prototype */ {
+  proto : /** @lends InternalDelta.prototype */ {
     
     /**
      * Returns changes array
@@ -30,7 +30,7 @@ DefaultDelta = DiffXmlUtils.createClass(Delta, {
     getChanges: function () {
       return this._changes;
     },
-    
+
     /**
      * Returns move operations as array
      * 
