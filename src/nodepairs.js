@@ -17,7 +17,9 @@ NodePairs = DiffXmlUtils.createClass(null, {
    * @constructs
    */
   init: function () {
-    this._pairs = new Array();
+    this._pairs = new Object();
+    this._pairCount = 0;
+    this._hashCounter = new Date().getTime();
   },
   proto : /** @lends NodePairs.prototype */ {
     /**
@@ -27,8 +29,16 @@ NodePairs = DiffXmlUtils.createClass(null, {
      * @param y partner of first node
      */
     add: function (x, y) {
-      this._pairs.push(x);
-      this._pairs.push(y);
+      var xHash = ++this._hashCounter; 
+      var yHash = ++this._hashCounter; 
+    
+      this._pairs[xHash] = y;
+      this._pairs[yHash] = x;
+      this._pairCount += 2;
+      
+      NodeOps.setUserData(x, "hash", xHash);
+      NodeOps.setUserData(y, "hash", yHash);
+
       this._setMatched(x, y);
     },
 
@@ -74,17 +84,12 @@ NodePairs = DiffXmlUtils.createClass(null, {
      * @return the partner of n.
      */
     getPartner: function (n) {
-      var ret = null;
-      var index = NodeOps.getNodeIndex(this._pairs, n);
-      if (index != -1) {
-        if ((index % 2) == 1) {
-          ret = this._pairs[--index];
-        } else {
-          ret = this._pairs[++index];
-        }
+      if (n == null) {
+        return null;
+      } else {
+        var hash = NodeOps.getUserData(n, "hash");
+        return hash ? this._pairs[hash]||null : null;
       }
-
-      return ret;
     },
 
     /**
@@ -95,7 +100,7 @@ NodePairs = DiffXmlUtils.createClass(null, {
      * @return The number of nodes stored.
      */
     size: function () {
-      return this._pairs.length;
+      return this._pairCount;
     },
     
     /**
@@ -104,17 +109,15 @@ NodePairs = DiffXmlUtils.createClass(null, {
      * @param n The Node to remove
      */
     remove: function (n) {
-      var nMatch = this.getPartner(n);
+      var nHash = NodeOps.getUserData(n, "hash");
+      var nMatch = this._pairs[nHash];
       NodeOps.setUserData(nMatch, "matched", null);
       NodeOps.setUserData(n, "matched", null);
       
-      var index = NodeOps.getNodeIndex(this._pairs, this.getPartner(n));
-      if (index != -1)
-        this._pairs.splice(index, 1);
+      delete this._pairs[NodeOps.getUserData(nMatch, "hash")];
+      delete this._pairs[nHash];
       
-      index = NodeOps.getNodeIndex(this._pairs, n);
-      if (index != -1)
-        this._pairs.splice(index, 1);
+      this._pairCount -= 2;
     }
     
   }
