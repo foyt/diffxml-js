@@ -11,8 +11,8 @@ EditScriptTest.prototype.setUp = function() {
  */
 
 EditScriptTest.prototype.testNonMatchingDocumentElements = function() {
-  var doc1 = loadXmlDocument('tests/diffxml/xml/testNonMatchingDocumentElements1.xml');
-  var doc2 = loadXmlDocument('tests/diffxml/xml/testNonMatchingDocumentElements2.xml');
+  var doc1 = parseXmlDocument('<?xml version="1.0"?><a><b/></a>');
+  var doc2 = parseXmlDocument('<?xml version="1.0"?><c><b/></c>');
   var matchings = Match.easyMatch(doc1, doc2);
   this.assertEquals(6, matchings.size());
   this.assertNull(matchings.getPartner(doc2.firstChild.firstChild.nextSibling));
@@ -28,8 +28,8 @@ EditScriptTest.prototype.testNonMatchingDocumentElements = function() {
  */
 
 EditScriptTest.prototype.testDifferentProlog = function() {
-  var doc1 = loadXmlDocument('tests/diffxml/xml/testDifferentProlog1.xml');
-  var doc2 = loadXmlDocument('tests/diffxml/xml/testDifferentProlog2.xml');
+  var doc1 = parseXmlDocument('<?xml version="1.0"?><!-- prolog1 --><a><b/></a>');
+  var doc2 = parseXmlDocument('<?xml version="1.0"?><!-- prolog2 --><a><b/></a>');
   var matchings = Match.easyMatch(doc1, doc2);
   this.assertEquals(6, matchings.size());
   var es = new EditScript(doc1, doc2, matchings);
@@ -50,8 +50,8 @@ EditScriptTest.prototype.testDifferentProlog = function() {
  */
 
 EditScriptTest.prototype.testSimpleInsert = function() {
-  var doc1 = loadXmlDocument('tests/diffxml/xml/testSimpleInsert1.xml');
-  var doc2 = loadXmlDocument('tests/diffxml/xml/testSimpleInsert2.xml');
+  var doc1 = parseXmlDocument('<?xml version="1.0"?><a><b/></a>');
+  var doc2 = parseXmlDocument('<?xml version="1.0"?><a><b/><c/></a>');
   var matchings = Match.easyMatch(doc1, doc2);
   this.assertEquals(6, matchings.size());
   this.assertNull(matchings.getPartner(doc2.firstChild.firstChild.nextSibling));
@@ -70,8 +70,8 @@ EditScriptTest.prototype.testSimpleInsert = function() {
  */
 
 EditScriptTest.prototype.testSimpleDeletion = function() {
-  var doc1 = loadXmlDocument('tests/diffxml/xml/testSimpleDeletion1.xml');
-  var doc2 = loadXmlDocument('tests/diffxml/xml/testSimpleDeletion2.xml');
+  var doc1 = parseXmlDocument('<?xml version="1.0"?><a><b/><c/></a>');
+  var doc2 = parseXmlDocument('<?xml version="1.0"?><a><b/></a>');
   var matchings = Match.easyMatch(doc1, doc2);
   this.assertEquals(6, matchings.size());
   this.assertNull(matchings.getPartner(doc1.firstChild.firstChild.nextSibling));
@@ -86,8 +86,8 @@ EditScriptTest.prototype.testSimpleDeletion = function() {
  */
 
 EditScriptTest.prototype.testSimpleMove = function() {
-  var doc1 = loadXmlDocument('tests/diffxml/xml/testSimpleMove1.xml');
-  var doc2 = loadXmlDocument('tests/diffxml/xml/testSimpleMove2.xml');
+  var doc1 = parseXmlDocument('<?xml version="1.0"?><a><b><c/></b><d/></a>');
+  var doc2 = parseXmlDocument('<?xml version="1.0"?><a><b/><d><c/></d></a>');
   var matchings = Match.easyMatch(doc1, doc2);
   this.assertEquals(10, matchings.size());
   var es = new EditScript(doc1, doc2, matchings);
@@ -103,8 +103,8 @@ EditScriptTest.prototype.testSimpleMove = function() {
  */
 
 EditScriptTest.prototype.testInsertAfterText = function() {
-  var doc1 = loadXmlDocument('tests/diffxml/xml/testInsertAfterText1.xml');
-  var doc2 = loadXmlDocument('tests/diffxml/xml/testInsertAfterText2.xml');
+  var doc1 = parseXmlDocument('<?xml version="1.0"?><a>text</a>');
+  var doc2 = parseXmlDocument('<?xml version="1.0"?><a>text<b/></a>');
   var matchings = Match.easyMatch(doc1, doc2);
   this.assertEquals(6, matchings.size());
   var es = new EditScript(doc1, doc2, matchings);
@@ -120,8 +120,8 @@ EditScriptTest.prototype.testInsertAfterText = function() {
  * Test mis-aligned nodes.
  */
 EditScriptTest.prototype.testMisalignedNodes = function() {
-  var doc1 = loadXmlDocument('tests/diffxml/xml/testMisalignedNodes1.xml');
-  var doc2 = loadXmlDocument('tests/diffxml/xml/testMisalignedNodes2.xml');
+  var doc1 = parseXmlDocument('<?xml version="1.0"?><a>b<c/>b</a>');
+  var doc2 = parseXmlDocument('<?xml version="1.0"?><a>z<c/>b</a>');
   var matchings = new NodePairs();
   var docEl1 = doc1.documentElement;
   var docEl2 = doc2.documentElement;
@@ -156,8 +156,8 @@ EditScriptTest.prototype.testMisalignedNodes = function() {
  * Test inserting and moving where marked order of nodes is important.
  */
 EditScriptTest.prototype.testOrdering = function() {
-  var doc1 = loadXmlDocument('tests/diffxml/xml/testOrdering1.xml');
-  var doc2 = loadXmlDocument('tests/diffxml/xml/testOrdering2.xml');
+  var doc1 = parseXmlDocument('<?xml version="1.0"?><a><c>6</c><b>7</b></a>');
+  var doc2 = parseXmlDocument('<?xml version="1.0"?><a><b>6</b><b>7</b></a>');
 
   var matchings = Match.easyMatch(doc1, doc2);
 
@@ -195,8 +195,8 @@ EditScriptTest.prototype.testOrdering = function() {
  * Test for irritating bug where unmatched node breaks text.
  */
 EditScriptTest.prototype.testNumberingBug = function() {
-  var doc1 = loadXmlDocument('tests/diffxml/xml/testNumberingBug1.xml');
-  var doc2 = loadXmlDocument('tests/diffxml/xml/testNumberingBug2.xml');
+  var doc1 = parseXmlDocument('<?xml version="1.0"?><a>x<b/>y</a>');
+  var doc2 = parseXmlDocument('<?xml version="1.0"?><a>x<p/>y<b/></a>');
 
   var matchings = Match.easyMatch(doc1, doc2);
   this.assertEquals(10, matchings.size());
@@ -219,8 +219,8 @@ EditScriptTest.prototype.testNumberingBug = function() {
  * Note DocumentType nodes can't be differenced, as can't be referenced by XPath.
  */
 EditScriptTest.prototype.testDocumentType = function() {
-  var doc1 = loadXmlDocument('tests/diffxml/xml/testDocumentType1.xml');
-  var doc2 = loadXmlDocument('tests/diffxml/xml/testDocumentType2.xml');
+  var doc1 = parseXmlDocument('<?xml version="1.0"?><!DOCTYPE a [ ]><a></a>');
+  var doc2 = parseXmlDocument('<?xml version="1.0"?><a></a>');
   var matchings = Match.easyMatch(doc1, doc2);
   this.assertEquals(4, matchings.size());
   var es = new EditScript(doc1, doc2, matchings);
