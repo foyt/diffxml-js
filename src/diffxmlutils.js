@@ -45,5 +45,34 @@ DiffXmlUtils = /** @lends DiffXmlUtils */ {
     result.prototype = Object.create(superClass, properties);
     
     return result;
-  } 
+  },
+  
+  /**
+   * Parses a XML document from String
+   * 
+   * @param xml xml data
+   * @returns xml document
+   */
+  parseXmlDocument: function (xml) {
+    if (window.DOMParser) {
+      var parser = new DOMParser();
+      return parser.parseFromString(xml,"text/xml");
+    } else {
+      var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+      xmlDoc.async = false;
+      xmlDoc.loadXML(xml);
+      return xmlDoc;
+    } 
+  },
+  
+  /**
+   * Serializes XML document into a string
+   * 
+   * @param document document
+   * @returns serialized string
+   */
+  serializeXmlDocument: function (document) {
+    var serializer = new XMLSerializer();
+    return serializer.serializeToString(document);
+  }
 };

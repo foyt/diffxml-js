@@ -207,6 +207,135 @@ InternalDelta = DiffXmlUtils.createClass(Delta, {
     },
     
     /**
+     * Returns delta in DUL format
+     * 
+     * @returns delta in DUL format
+     */
+    toDUL: function () {
+      var changes = this.getChanges();
+      
+      var dulDocument = DiffXmlUtils.parseXmlDocument('<?xml version="1.0" encoding="UTF-8" standalone="no"?><delta/>');
+      
+      for (var i = 0, l = changes.length; i < l; i++) {
+        var change = changes[i];
+
+        switch (change.type) {
+          case 'insert':
+            this._appendInsertDULNode(dulDocument, change.parent, change.nodeType, change.childNo, change.nodeName, change.charpos, change.value);
+          break;
+          case 'delete':
+            this._appendDeleteDULNode(dulDocument, change.charpos, change.length, change.node);
+          break;
+          case 'move':
+            this._appendMoveDULNode(dulDocument, change.node, change.ocharpos, change.ncharpos, change.parent, change.childNo, change.length);
+          break;
+          case 'update':
+            this._appendUpdateDULNode(dulDocument, change.node, change.nodeName, change.nodeValue);
+          break;
+          default:
+            throw new Error("Invalid operation: " + change.type);
+          break;
+        }
+      }
+      
+      return DiffXmlUtils.serializeXmlDocument(dulDocument);
+    },
+    
+    _appendInsertDULNode: function (dulDocument, parent, nodeType, childNo, nodeName, charpos, value) {
+      var node = dulDocument.createElement(DULConstants.INSERT);
+
+      if (charpos) {
+        node.setAttribute(DULConstants.CHARPOS, charpos);
+      }
+      
+      if (childNo) {
+        node.setAttribute(DULConstants.CHILDNO, childNo);
+      }
+
+      if (nodeName) {
+        node.setAttribute(DULConstants.NAME, nodeName);
+      }
+      
+      if (nodeType) {
+        node.setAttribute(DULConstants.NODETYPE, nodeType);
+      }
+      
+      if (parent) {
+        node.setAttribute(DULConstants.PARENT, parent);
+      }
+
+      if (value) {
+        node.appendChild(dulDocument.createTextNode(value));
+      }
+      
+      dulDocument.documentElement.appendChild(node);
+    },
+    
+    _appendDeleteDULNode: function (dulDocument, charpos, length, nodeAttr) {
+      var node = dulDocument.createElement(DULConstants.DELETE);
+      
+      if (charpos) {
+        node.setAttribute(DULConstants.CHARPOS, charpos);
+      }
+
+      if (length) {
+        node.setAttribute(DULConstants.LENGTH, length);
+      }
+      
+      if (nodeAttr) {
+        node.setAttribute(DULConstants.NODE, nodeAttr);
+      }
+      
+      dulDocument.documentElement.appendChild(node);
+    },
+    
+    _appendMoveDULNode: function (dulDocument, node, ocharpos, ncharpos, parent, childNo, length) {
+      var node = dulDocument.createElement(DULConstants.MOVE);
+      
+      if (node) {
+        node.setAttribute(DULConstants.NODE, node);
+      }
+
+      if (ocharpos) {
+        node.setAttribute(DULConstants.OLD_CHARPOS, ocharpos);
+      }
+      
+      if (ncharpos) {
+        node.setAttribute(DULConstants.NEW_CHARPOS, ncharpos);
+      }
+      
+      if (parent) {
+        node.setAttribute(DULConstants.PARENT, parent);
+      }
+      
+      if (childNo) {
+        node.setAttribute(DULConstants.CHILDNO, childNo);
+      }
+
+      if (length) {
+        node.setAttribute(DULConstants.LENGTH, length);
+      }
+      
+      dulDocument.documentElement.appendChild(node);
+    },
+    
+    _appendUpdateDULNode: function (dulDocument, node, nodeName, nodeValue) {
+      var node = dulDocument.createElement(DULConstants.DELETE);
+      
+      if (node) {
+        node.setAttribute(DULConstants.NODE, node);
+      }
+      
+      if (nodeName) {
+        node.appendChild(dulDocument.createTextNode(nodeName));
+      } else if (nodeValue) {
+        node.appendChild(dulDocument.createTextNode(nodeValue));
+      }
+      
+      dulDocument.documentElement.appendChild(node);
+    },
+    
+    /**
      * Updates the attributes of element w to be the same as x's.
      * 
      * @param w The Element to update the attributes of
