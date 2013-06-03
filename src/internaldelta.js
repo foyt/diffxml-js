@@ -120,11 +120,11 @@ InternalDelta = DiffXmlUtils.createClass(Delta, {
         inserted['charpos'] = charpos;
       }
       
+      this._changes.push(inserted);
+      
       if (n.nodeType == Node.ELEMENT_NODE) {
         this.addAttrsToDelta(n.attributes, parent + "/node()[" + childno + "]");
       }
-      
-      this._changes.push(inserted);
     },
     
     /**
