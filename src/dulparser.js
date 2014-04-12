@@ -94,14 +94,14 @@ DULParser = /** @lends DULParser */ {
       node: operation.getAttribute(DULConstants.NODE)
     };
     
-    var charpos = operation.getAttribute(DULConstants.CHARPOS);
-    var length = operation.getAttribute(DULConstants.LENGTH);
+    var charpos = operation.hasAttribute(DULConstants.CHARPOS) ? parseInt(operation.getAttribute(DULConstants.CHARPOS)) : NaN;
+    var length = operation.hasAttribute(DULConstants.LENGTH) ? parseInt(operation.getAttribute(DULConstants.LENGTH)) : NaN;
 
-    if (charpos !== null) {
+    if (!isNaN(charpos)) {
       internalOperation['charpos'] = parseInt(charpos);
     }
     
-    if (length !== null) {
+    if (!isNaN(length)) {
       internalOperation['length'] = parseInt(length);
     }
     
