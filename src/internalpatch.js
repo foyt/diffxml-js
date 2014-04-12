@@ -202,8 +202,19 @@ InternalPatch = DiffXmlUtils.createClass(null, {
     },
 
     _findNodeByXPath : function(document, xpath) {
-      var result = document.evaluate(xpath, document, null, XPathResult.ANY_TYPE, null);
-      return result.iterateNext();
+      if ((typeof document.evaluate) === 'undefined') {
+        if ((typeof (global||window).xpath) !== 'undefined') {
+          var result = (global||window).xpath.select(xpath, document);
+          if (result && result.length > 0) {
+            return result[0];
+          }
+        }
+      } else {
+        var result = document.evaluate(xpath, document, null, XPathResult.ANY_TYPE, null);
+        return result.iterateNext();
+      }
+      
+      return null;
     },
 
     /**
