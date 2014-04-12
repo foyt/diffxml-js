@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="diffxmljs" default="all">
-
+	
 	<property name="project" value="diffxml-js" />
-	<property name="version" value="1.3.0" />
-
 	<taskdef name="jsdoctoolkit" classname="uk.co.darrenhurley.ant.tasks.JsDocToolkit">
 	  <classpath path="build/jsdoc-toolkit-ant-task-1.1.2.jar"></classpath>
 	  <classpath path="build/jsdoc_toolkit-2.4.0/java/classes/js.jar"></classpath>
@@ -76,6 +74,29 @@
         <exclude name=".svn"/>
       </fileset>
     </copy>
+		
+	  <script language="javascript"><![CDATA[
+	    importClass(java.io.File);
+	    importClass(java.io.FileReader);
+	    importClass(java.io.BufferedReader);
+	    importClass(java.io.FileWriter);
+	    importClass(java.io.BufferedWriter);
+
+	    var file = new File("package.json");
+	    var json = "";
+	    var fr = new FileReader(file);
+	    var br = new BufferedReader(fr);
+	    
+	    var line = null;
+	    while (line = br.readLine()) {
+	      if (line)
+	        json += line;
+	    }
+	    
+	    var packageJson = eval('(' + json + ')');
+	    diffxmljs.setProperty("version", packageJson.version);
+	    ]]>
+	  </script>
     
     <tar destfile="archives/${project}-${version}.tar" basedir="archives/dist/"></tar>
     <gzip src="archives/${project}-${version}.tar" destfile="archives/${project}-${version}.tar.gz"/>
@@ -95,5 +116,5 @@
 	</target>
 	
 	<target name="all" depends="build,jsdoc,archives"></target>
-	
+
 </project>
