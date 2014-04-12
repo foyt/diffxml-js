@@ -154,7 +154,11 @@ InternalPatch = DiffXmlUtils.createClass(null, {
 
         node.parentNode.replaceChild(newNode, node);
       } else {
-        node.nodeValue = operation.nodeValue;
+        if (node.nodeType == Node.ATTRIBUTE_NODE) {
+          node.value = operation.nodeValue;
+        } else {
+          node.nodeValue = operation.nodeValue;
+        }
       }
     },
 
