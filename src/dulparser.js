@@ -75,7 +75,7 @@ DULParser = /** @lends DULParser */ {
       internalOperation['nodeName'] = operation.getAttribute(DULConstants.NAME);
     }
     
-    var charPosAttr = operation.attributes[DULConstants.CHARPOS];
+    var charPosAttr = operation.attributes.getNamedItem(DULConstants.CHARPOS);
     if (charPosAttr) {
       internalOperation['charpos'] = charPosAttr.value;
     }
