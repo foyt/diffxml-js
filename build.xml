@@ -2,19 +2,18 @@
 <project name="diffxmljs" default="all">
 
 	<property name="project" value="diffxml-js" />
-	<property name="version" value="1.2.0" />
+	<property name="version" value="1.2.1" />
 
 	<taskdef name="jsdoctoolkit" classname="uk.co.darrenhurley.ant.tasks.JsDocToolkit">
-	  <classpath path="${jsdoc-toolkit-ant-task}"></classpath>
-	  <classpath path="${jsdoc-home}/java/classes/js.jar"></classpath>
+	  <classpath path="build/jsdoc-toolkit-ant-task-1.1.2.jar"></classpath>
+	  <classpath path="build/jsdoc_toolkit-2.4.0/java/classes/js.jar"></classpath>
 	</taskdef>
 	
 	<property name="jsdocoutputdir" value="docs/apidocs" />
-
 	<description>Build file for DiffXmlJs</description>
 
 	<target name="jsdoc" description="Generates jsdoc files">
-		<jsdoctoolkit jsdochome="${jsdoc-home}" template="jsdoc" outputdir="${jsdocoutputdir}" inputdir="src" />
+		<jsdoctoolkit jsdochome="build/jsdoc_toolkit-2.4.0/" template="jsdoc" outputdir="${jsdocoutputdir}" inputdir="src" />
 	</target>
 
 	<target name="build">
@@ -39,7 +38,7 @@
 		  </filelist>
 		</concat>
 
-		<java jar="${yuicompressor-jar}" fork="true">
+		<java jar="build/yuicompressor-2.4.8.jar" fork="true">
 			<arg value="dist/${project}-uncompressed.js" />
 			<arg value="-o" />
 			<arg value="dist/${project}.js" />
