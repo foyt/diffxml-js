@@ -49,7 +49,9 @@
 
   module.exports = {
     DULParser: DULParser,
-    InternalPatch: InternalPatch
+    InternalPatch: InternalPatch,
+    Match: Match,
+    EditScript: EditScript
   };
   
 }).call(this);
