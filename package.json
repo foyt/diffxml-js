@@ -8,6 +8,10 @@
     "type": "git",
     "url": "git://github.com/foyt/diffxml-js.git"
   },
+  "main": "./diffxml.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
   "engines": {
     "node": ">=0.8.0"
   },
