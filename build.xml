@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="diffxmljs" default="all">
 	
-	<property name="project" value="diffxml-js" />
 	<taskdef name="jsdoctoolkit" classname="uk.co.darrenhurley.ant.tasks.JsDocToolkit">
 	  <classpath path="build/jsdoc-toolkit-ant-task-1.1.2.jar"></classpath>
 	  <classpath path="build/jsdoc_toolkit-2.4.0/java/classes/js.jar"></classpath>
@@ -15,106 +14,57 @@
 	</target>
 
 	<target name="build">
-		<concat destfile="dist/${project}-uncompressed.js" encoding="UTF-8">
+    <script language="javascript"><![CDATA[
+      importClass(java.io.File);
+      importClass(java.io.FileReader);
+      importClass(java.io.BufferedReader);
+      importClass(java.io.FileWriter);
+      importClass(java.io.BufferedWriter);
+
+      var file = new File("package.json");
+      var json = "";
+      var fr = new FileReader(file);
+      var br = new BufferedReader(fr);
+      
+      var line = null;
+      while (line = br.readLine()) {
+        if (line)
+          json += line;
+      }
+      
+      var packageJson = eval('(' + json + ')');
+      diffxmljs.setProperty("version", packageJson.version);
+      ]]>
+    </script>
+      	
+		<concat destfile="dist/diffxml-${version}.js" encoding="UTF-8">
 		  <filelist>
-        <file name="src/diffxmlutils.js"/>
-		  	<file name="src/delta.js"/>
-		  	<file name="src/internaldelta.js"/>
-        <file name="src/internalpatch.js"/>
-		  	<file name="src/editscript.js"/>
-        <file name="src/findposition.js"/>
-        <file name="src/fmes.js"/>
-        <file name="src/nodefifo.js"/>
-        <file name="src/nodeops.js"/>
-        <file name="src/nodepairs.js"/>
-        <file name="src/nodedepth.js"/>
-        <file name="src/match.js"/>
-        <file name="src/nodesequence.js"/>
-        <file name="src/childnumber.js"/>
-        <file name="src/dulconstants.js"/>
-        <file name="src/dulparser.js"/>
+        <file name="lib/diffxmlutils.js"/>
+		  	<file name="lib/delta.js"/>
+		  	<file name="lib/internaldelta.js"/>
+        <file name="lib/internalpatch.js"/>
+		  	<file name="lib/editscript.js"/>
+        <file name="lib/findposition.js"/>
+        <file name="lib/fmes.js"/>
+        <file name="lib/nodefifo.js"/>
+        <file name="lib/nodeops.js"/>
+        <file name="lib/nodepairs.js"/>
+        <file name="lib/nodedepth.js"/>
+        <file name="lib/match.js"/>
+        <file name="lib/nodesequence.js"/>
+        <file name="lib/childnumber.js"/>
+        <file name="lib/dulconstants.js"/>
+        <file name="lib/dulparser.js"/>
 		  </filelist>
 		</concat>
 
 		<java jar="build/yuicompressor-2.4.8.jar" fork="true">
-			<arg value="dist/${project}-uncompressed.js" />
+			<arg value="dist/diffxml-${version}.js" />
 			<arg value="-o" />
-			<arg value="dist/${project}.js" />
+			<arg value="dist/diffxml-${version}.min.js" />
 		</java>
 	</target>
-	
-	<target name="archives">
-	  <delete dir="archives"/>
-	    
-    <mkdir dir="archives"/>
-    <mkdir dir="archives/dist"/>
-    <mkdir dir="archives/dist/${project}"/>
-    <mkdir dir="archives/full"/>
-    <mkdir dir="archives/full/${project}"/>
-    <mkdir dir="archives/full/${project}/src"/>
-    <mkdir dir="archives/full/${project}/docs"/>
-    <mkdir dir="archives/full/${project}/dist"/>
-    
-    <copy todir="archives/dist/${project}"> 
-      <fileset dir="dist" includes="*.js"/>
-    </copy>
 
-    <copy todir="archives/full/${project}/dist"> 
-      <fileset dir="dist" includes="*.js"/>
-    </copy>
-
-    <copy todir="archives/full/${project}/docs" includeemptydirs="true" > 
-      <fileset dir="docs">
-        <exclude name=".svn"/>
-      </fileset>
-    </copy>
-
-    <copy todir="archives/full/${project}/src" includeemptydirs="true" > 
-      <fileset dir="src">
-        <exclude name=".svn"/>
-      </fileset>
-    </copy>
-		
-	  <script language="javascript"><![CDATA[
-	    importClass(java.io.File);
-	    importClass(java.io.FileReader);
-	    importClass(java.io.BufferedReader);
-	    importClass(java.io.FileWriter);
-	    importClass(java.io.BufferedWriter);
-
-	    var file = new File("package.json");
-	    var json = "";
-	    var fr = new FileReader(file);
-	    var br = new BufferedReader(fr);
-	    
-	    var line = null;
-	    while (line = br.readLine()) {
-	      if (line)
-	        json += line;
-	    }
-	    
-	    var packageJson = eval('(' + json + ')');
-	    diffxmljs.setProperty("version", packageJson.version);
-	    ]]>
-	  </script>
-    
-    <tar destfile="archives/${project}-${version}.tar" basedir="archives/dist/"></tar>
-    <gzip src="archives/${project}-${version}.tar" destfile="archives/${project}-${version}.tar.gz"/>
-    <bzip2 src="archives/${project}-${version}.tar" destfile="archives/${project}-${version}.tar.bz2"/>
-    <delete file="archives/${project}-${version}.tar"></delete>
-    <zip destfile="archives/${project}-${version}.zip" basedir="archives/dist/"></zip>
-    
-    <tar destfile="archives/${project}-${version}-src.tar" basedir="archives/full/"></tar>
-    <gzip src="archives/${project}-${version}-src.tar" destfile="archives/${project}-${version}-src.tar.gz"/>
-    <bzip2 src="archives/${project}-${version}-src.tar" destfile="archives/${project}-${version}-src.tar.bz2"/>
-    <delete file="archives/${project}-${version}-src.tar"></delete>
-    <zip destfile="archives/${project}-${version}-src.zip" basedir="archives/full/"></zip>
-    
-    <delete dir="archives/dist"/>
-    <delete dir="archives/full"/>
-    
-	</target>
-	
-	<target name="all" depends="build,jsdoc,archives"></target>
+	<target name="all" depends="build,jsdoc"></target>
 
 </project>
