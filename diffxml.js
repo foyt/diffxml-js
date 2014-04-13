@@ -51,7 +51,8 @@
     DULParser: DULParser,
     InternalPatch: InternalPatch,
     Match: Match,
-    EditScript: EditScript
+    EditScript: EditScript,
+    NodeDepth: NodeDepth
   };
   
 }).call(this);
