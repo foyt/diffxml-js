@@ -56,7 +56,8 @@
     NodeFifo: NodeFifo,
     NodeOps: NodeOps,
     NodePairs: NodePairs,
-    NodeSequence: NodeSequence
+    NodeSequence: NodeSequence,
+    Fmes: Fmes
   };
   
 }).call();
