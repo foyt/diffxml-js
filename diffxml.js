@@ -53,7 +53,8 @@
     Match: Match,
     EditScript: EditScript,
     NodeDepth: NodeDepth,
-    NodeFifo: NodeFifo
+    NodeFifo: NodeFifo,
+    NodeOps: NodeOps
   };
   
 }).call(this);
