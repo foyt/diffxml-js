@@ -55,7 +55,8 @@
     NodeDepth: NodeDepth,
     NodeFifo: NodeFifo,
     NodeOps: NodeOps,
-    NodePairs: NodePairs
+    NodePairs: NodePairs,
+    NodeSequence: NodeSequence
   };
   
 }).call(this);
