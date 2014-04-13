@@ -59,4 +59,4 @@
     NodeSequence: NodeSequence
   };
   
-}).call(this);
+}).call();
