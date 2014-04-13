@@ -54,7 +54,8 @@
     EditScript: EditScript,
     NodeDepth: NodeDepth,
     NodeFifo: NodeFifo,
-    NodeOps: NodeOps
+    NodeOps: NodeOps,
+    NodePairs: NodePairs
   };
   
 }).call(this);
