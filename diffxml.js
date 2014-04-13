@@ -52,7 +52,8 @@
     InternalPatch: InternalPatch,
     Match: Match,
     EditScript: EditScript,
-    NodeDepth: NodeDepth
+    NodeDepth: NodeDepth,
+    NodeFifo: NodeFifo
   };
   
 }).call(this);
