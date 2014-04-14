@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+- '0.10'
+deploy:
+  provider: npm
+  email: development@foyt.fi
+  api_key:
+    secure: PsVwZ7F7Bdthwa+9w1OiAIdbCGKY2jPSCfZdsI7jwtg0J4v0Fcw0iwx0/jeLcTNtATY9SPyBeNfEp/vJzKbn+WUFgQnbu0NdZYjiHMwXWcoqDgV8go6gpigrF3Uky6UxIhUF7l0VqCjMk+k8s/eaghrZv91yGQpsRdvI3ufARl8=
+  on:
+    repo: foyt/diffxml-js
+    branch: master
