@@ -1,0 +1,87 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/*
+<span class='line'>  2</span>  * DiffXmlJs - JavaScript library for comparing XML files.
+<span class='line'>  3</span>  * 
+<span class='line'>  4</span>  * Licensed under GNU Lesser General Public License Version 3 or later (the "LGPL")
+<span class='line'>  5</span>  * http://www.gnu.org/licenses/lgpl.html
+<span class='line'>  6</span>  *
+<span class='line'>  7</span>  * Antti Leppä / Foyt
+<span class='line'>  8</span>  * antti.leppa@foyt.fi
+<span class='line'>  9</span>  */</span><span class="WHIT">
+<span class='line'> 10</span> 
+<span class='line'> 11</span> </span><span class="COMM">/**
+<span class='line'> 12</span>  * @class
+<span class='line'> 13</span>  * Constants used in DUL Deltas.
+<span class='line'> 14</span>  */</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="NAME">DULConstants</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="COMM">/** @lends DULConstants */</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 16</span> 
+<span class='line'> 17</span> </span><span class="WHIT">    </span><span class="COMM">/** If the delta was created as a "reverse patch". **/</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">  </span><span class="NAME">REVERSE_PATCH</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"reverse_patch"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="WHIT">  
+<span class='line'> 20</span>   </span><span class="COMM">/** The amount of parent sibling context. **/</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="WHIT">  </span><span class="NAME">PARENT_SIBLING_CONTEXT</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"par_sib_context"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT">  
+<span class='line'> 23</span>   </span><span class="COMM">/** The amount of parent context. **/</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">  </span><span class="NAME">PARENT_CONTEXT</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"par_context"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">  
+<span class='line'> 26</span>   </span><span class="COMM">/** The amount of sibling context. **/</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">  </span><span class="NAME">SIBLING_CONTEXT</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"sib_context"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="WHIT">  
+<span class='line'> 29</span>   </span><span class="COMM">/** Document element of a DUL EditScript. **/</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">  </span><span class="NAME">DELTA</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"delta"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">  
+<span class='line'> 32</span>   </span><span class="COMM">/** Character position of the "new" node. **/</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">  </span><span class="NAME">NEW_CHARPOS</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"new_charpos"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">  
+<span class='line'> 35</span>   </span><span class="COMM">/** Character position of the "old" node. **/</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">  </span><span class="NAME">OLD_CHARPOS</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"old_charpos"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">  
+<span class='line'> 38</span>   </span><span class="COMM">/** Move operation element. **/</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">  </span><span class="NAME">MOVE</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"move"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">  
+<span class='line'> 41</span>   </span><span class="COMM">/** Number of characters to extract from a text node. **/</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">  </span><span class="NAME">LENGTH</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"length"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">  
+<span class='line'> 44</span>   </span><span class="COMM">/** The node for the operation. **/</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="WHIT">  </span><span class="NAME">NODE</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"node"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">  
+<span class='line'> 47</span>   </span><span class="COMM">/** Delete operation element. **/</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">  </span><span class="NAME">DELETE</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"delete"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">  
+<span class='line'> 50</span>   </span><span class="COMM">/** Character position in text of the node. **/</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="WHIT">  </span><span class="NAME">CHARPOS</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"charpos"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">  
+<span class='line'> 53</span>   </span><span class="COMM">/** Name of the node. **/</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">  </span><span class="NAME">NAME</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"name"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">  
+<span class='line'> 56</span>   </span><span class="COMM">/** Child number of parent node. **/</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">  </span><span class="NAME">CHILDNO</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"childno"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">  
+<span class='line'> 59</span>   </span><span class="COMM">/** DOM type of the node. **/</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">  </span><span class="NAME">NODETYPE</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"nodetype"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">  
+<span class='line'> 62</span>   </span><span class="COMM">/** Parent of the node. **/</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">  </span><span class="NAME">PARENT</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"parent"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">  
+<span class='line'> 65</span>   </span><span class="COMM">/** Insert operation element. **/</span><span class="WHIT"> 
+<span class='line'> 66</span>   </span><span class="NAME">INSERT</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"insert"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">  
+<span class='line'> 68</span>   </span><span class="COMM">/** Update operation element. **/</span><span class="WHIT"> 
+<span class='line'> 69</span>   </span><span class="NAME">UPDATE</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"update"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">  
+<span class='line'> 71</span>   </span><span class="COMM">/** If entities were resolved when creating the delta. **/</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">  </span><span class="NAME">RESOLVE_ENTITIES</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"resolve_entities"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">  
+<span class='line'> 74</span>   </span><span class="COMM">/** False constant. **/</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">  </span><span class="NAME">FALSE</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"false"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="WHIT">  
+<span class='line'> 77</span>   </span><span class="COMM">/** True constant. **/</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">  </span><span class="NAME">TRUE</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"true"</span><span class="WHIT">
+<span class='line'> 79</span> 
+<span class='line'> 80</span> </span><span class="PUNC">}</span><span class="PUNC">;</span></pre></body></html>
