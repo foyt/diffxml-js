@@ -10,7 +10,7 @@
 	<description>Build file for DiffXmlJs</description>
 
 	<target name="jsdoc" description="Generates jsdoc files">
-		<jsdoctoolkit jsdochome="build/jsdoc_toolkit-2.4.0/" template="jsdoc" outputdir="${jsdocoutputdir}" inputdir="src" />
+		<jsdoctoolkit jsdochome="build/jsdoc_toolkit-2.4.0/" template="jsdoc" outputdir="${jsdocoutputdir}" inputdir="lib" />
 	</target>
 
 	<target name="build">
