@@ -1,0 +1,8 @@
+.settings
+.project
+.DS_Store
+build
+dist
+docs
+jsunittests
+build.xml
